@@ -11,9 +11,9 @@ namespace Game
 		const static std::size_t space_for_cells = ((X * Y / 8) + 1) * 2;
 		std::uint8_t board[space_for_cells] = {};
 		bool get_cell_bit(const std::size_t bit) const { return board[bit / 8] & (1 << (bit % 8)); }
-		void set_cell_bit(const std::size_t bit)
+		void set_cell_bit(const std::size_t bit, const bool&  bit_val)
 		{
-			if (!get_cell_bit(bit))
+			if (bit_val)
 				board[bit / 8] |= (1 << (bit % 8));
 			else 
 				board[bit / 8] &= ~(1 << (bit % 8));
@@ -31,20 +31,18 @@ namespace Game
 	template <int X, int Y>
 	void Board<X, Y>::make_move(const int& posFrom, const int& posTo)
 	{
-		if (get_cell(posFrom) == 1)
-		{	
-			set_cell(posTo, 0);
-			set_cell_bit(posFrom);
-		}
-		if (get_cell(posFrom) == 2)
+		if(get_cell_bit(posFrom))
 		{
-			set_cell(posTo, 1);
-			set_cell_bit(posFrom);
+			if (get_cell(posFrom) == 1)
+				set_cell(posTo, 0);
+			
+			if (get_cell(posFrom) == 2)
+				set_cell(posTo, 1);
+
+			set_cell_bit(posFrom, false);
 		}
-		
-		return;
-		
-		
+		else
+			return;		
 	}
 
 	template <int X, int Y>
@@ -74,11 +72,14 @@ namespace Game
 	void Board<X, Y>::set_cell(const int& pos, const int& side)
 	{
 		if (side == 0)
-			set_cell_bit(pos);
+		{
+			set_cell_bit(pos, true);
+			set_cell_bit(pos + X * Y, false);
+		}
 		if (side == 1)
 		{
-			set_cell_bit(pos);
-			set_cell_bit(pos * 2);
+			set_cell_bit(pos, true);
+			set_cell_bit(pos + X * Y, true);
 		}
 	}
 }
@@ -95,15 +96,17 @@ int main(int argc, char* argv[])
 
 
 	
-	obj.diagnostic();
+//	obj.diagnostic();
 
-	std::cout << obj.get_cell(3) << '\n';
+//	std::cout << obj.get_cell(3) << '\n';
 
 	obj.make_move(3, 11);
 
  	obj.make_move(11, 12);
 
 	obj.make_move(3, 11);
+	
+	obj.make_move(60, 54);
 
 	obj.diagnostic();
 
