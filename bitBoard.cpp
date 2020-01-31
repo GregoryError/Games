@@ -101,7 +101,7 @@ int main(int argc, char* argv[])
 
 	obj.make_move(3, 11);
 
-	obj.make_move(11, 12);
+ 	obj.make_move(11, 12);
 
 	obj.make_move(3, 11);
 
