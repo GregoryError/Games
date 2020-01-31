@@ -117,12 +117,24 @@ int main(int argc, char* argv[])
 
 //	obj.make_move(3, 11);
 	
+<<<<<<< HEAD
 //	obj.make_move(60, 54);
 
 //	obj.diagnostic();
+=======
+//	obj.diagnostic();
+
+//	std::cout << obj.get_cell(3) << '\n';
+>>>>>>> 9ca1fee2f3d6f2845a996c2ef06cdabd2d6dd17e
 
 
 
+<<<<<<< HEAD
+=======
+	obj.make_move(3, 11);
+	
+	obj.make_move(60, 54);
+>>>>>>> 9ca1fee2f3d6f2845a996c2ef06cdabd2d6dd17e
 
 
 
